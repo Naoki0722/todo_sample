@@ -18,42 +18,27 @@ class TodosController < ApplicationController
 
   def create
     @todo = Todo.new(todo_params)
-
-    respond_to do |format|
-      if @todo.save
-        format.turbo_stream { render turbo_stream: turbo_stream.prepend("todos", partial: "todos/todo", locals: { todo: @todo }) }
-        format.html { redirect_to todos_path, notice: "Todoが作成されました。" }
-      else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("todo_form", partial: "todos/form", locals: { todo: @todo }) }
-        format.html { render :new, status: :unprocessable_entity }
-      end
+    unless @todo.save
+      render :new, status: :unprocessable_entity
     end
+    @todo_count = Todo.count
   end
 
   def update
-    respond_to do |format|
-      if @todo.update(todo_params)
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@todo, partial: "todos/todo", locals: { todo: @todo }) }
-        format.html { redirect_to todos_path, notice: "Todoが更新されました。" }
-      else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("todo_#{@todo.id}", partial: "todos/todo", locals: { todo: @todo }) }
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    unless @todo.update(todo_params)
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @todo.destroy
-
-    respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.remove(@todo) }
-      format.html { redirect_to todos_path, notice: "Todoが削除されました。" }
-    end
+    @todo_count = Todo.count
   end
 
   private
 
   def set_todo
+    @todo = Todo.find(params[:id])
     @todo = Todo.find(params[:id])
   end
 
