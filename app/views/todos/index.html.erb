@@ -1,0 +1,21 @@
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-8">Todos</h1>
+
+  <%= turbo_frame_tag "todo_form" do %>
+    <div class="bg-white shadow-sm rounded-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold mb-4">新しいTodoを作成</h2>
+      <%= render "form", todo: @todo %>
+    </div>
+  <% end %>
+
+  <div class="bg-white shadow-sm rounded-lg">
+    <div class="p-6">
+      <h2 class="text-xl font-semibold mb-4">Todo一覧</h2>
+      <%= turbo_frame_tag "todos" do %>
+        <div class="space-y-4">
+          <%= render @todos %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
