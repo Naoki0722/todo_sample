@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 
-ruby "3.3.2"
+ruby "3.4.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.5", ">= 7.1.5.1"
+gem "rails", "~> 8.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -68,3 +68,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "solid_queue", "~> 1.1"
+
+gem "mission_control-jobs"
+
+gem "solid_cable", "~> 3.0"

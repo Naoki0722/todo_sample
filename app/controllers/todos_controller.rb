@@ -21,19 +21,18 @@ class TodosController < ApplicationController
     unless @todo.save
       render :new, status: :unprocessable_entity
     end
-    redirect_to todos_path
+    @todo_count = Todo.count
   end
 
   def update
     unless @todo.update(todo_params)
       render :edit, status: :unprocessable_entity
     end
-    redirect_to todos_path
   end
 
   def destroy
     @todo.destroy
-    redirect_to todos_path
+    @todo_count = Todo.count
   end
 
   private
