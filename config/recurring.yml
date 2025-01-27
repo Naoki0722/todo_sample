@@ -2,7 +2,7 @@ development:
   hello_sample_job:
     class: HelloSampleJob
     args: [ 42, { status: "custom_status" } ]
-    schedule: every second
+    schedule: every hour
 # production:
 #   periodic_cleanup:
 #     class: CleanSoftDeletedRecordsJob
